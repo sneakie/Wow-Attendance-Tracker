@@ -55,10 +55,21 @@ letter_List = [
     # "Z"
 ]
 
+dp_name = [
+
+]
+
+dp_name_pos = [
+
+]
+
+# Maybe useless variables
+number = 2
 
 def dp(row, col):
     position = col+str(row)
-    sheet_instance.update_acell(position, "trimmus is cute")
+    #dropdown_option = option
+    sheet_instance.update_acell(position, "Accepted")
     return
 
 
@@ -94,20 +105,42 @@ def label_date():
         # print(all_values[0][7:14])
         # print(rows[0][7:14])
 
-
-# Maybe useless variables
-number = 2
+def dp_row(p):
+        row = sheet_instance.row_values(p)
+        for pos in row[7:15]:
+            dp_name.append(pos)
+            print(dp_name)
+            #print(len(dp_name))
+            #print(dp_name)
 
 # function that creates buttons
 def start():
+    #for i in range(0, 48):
+        #print(dp_name[i])
     for i in range(2, 8):
+        p=i
+        dp_row(p)
         column = 0
         for letter in letter_List:
+            #print(i)
             column += 1
-            mybutton = Button(top, height=2, width=5, text=f"{letter}{i}", command=lambda row=i, col=letter: dp(row, col))
-            mybutton.grid(column=column, row=i, pady=3, padx=2)
+            #cell = sheet_instance.cell()
+            #pos = letter + str(i)
+            #coord = sheet_instance.acell(pos).value
+            menu_op = StringVar()
+            menu_op.set(dp_name[i])
+            dropdown = OptionMenu(top, menu_op, *dp_options)
+            dropdown.grid(column=column, row=i, pady=3, padx=2)
+            #dropdown = OptionMenu(top, text=f"{letter}{i}", command=lambda row=i, col=letter: dp(row, col), *dp_options)
+            #dropdown.grid(column=column, row=i, pady=3, padx=2)
+            #mybutton = Button(top, height=2, width=5, text=f"{letter}{i}, command=lambda row=i, col=letter: dp(row, col))
+            #mybutton.grid(column=column, row=i, pady=3, padx=2)
+            # command=lambda row=i, col=letter, option=option: dp(row, col, option), text=dp_options
 
-
+#pos = letter + str(i)
+#coord = sheet_instance.acell(pos).value
+#list.append(dp_name, coord)
+#print(dp_name)
 label_date()
 label_name()
 start()
