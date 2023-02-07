@@ -111,5 +111,4 @@ def start():
 label_date()
 label_name()
 start()
-print("debug for git 3")
 top.mainloop()
