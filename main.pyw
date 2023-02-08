@@ -110,7 +110,7 @@ def start():
             dropdown.grid(column=column, row=i, pady=3, padx=2)
 
 
-# Actual code running
+# Actual code running debug add
 for i in range(2, 8):
     p = i
     dp_row(p)
