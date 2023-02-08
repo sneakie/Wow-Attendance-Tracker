@@ -1,13 +1,8 @@
-import tkinter
+import tkinter as tk
 from tkinter import *
 import gspread
-import os
-from tkinter import ttk
-import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
-import tkinter as tk
-import json
-import string
+
 scopes = [
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/drive'
@@ -68,75 +63,49 @@ dp_name_pos = [
 def dp(status, pos):
     print(status)
     print(pos)
-    #print(pos)
-    #position = col+str(row)
-    #dropdown_option = option
     sheet_instance.update_acell(pos, status)
     return
-
-
-# Column differentiator
-def position(position):
-    for letter in letter_List:
-        position = letter
-        return
-
 
 # Name's of players in A Column
 def label_name():
     row = 0
-    for label_name in all_values:
+    for labelName in all_values:
         row += 1
         var = StringVar()
         label = Label(top, textvariable=var, font=25)
-        var.set(label_name[0])
+        var.set(labelName[0])
         label.grid(row=row)
-        # print(label_name[0])
 
 
 # All the dates in row 0 (excluding A-G Column)
 def label_date():
     column = 0
-    # var = StringVar()
-    # var.set(rows[0][7:14])
-    for label_date in all_values[0][7:25]:
+    for labelDate in all_values[0][7:25]:
         column += 1
         var = StringVar()
         label2 = Label(top, textvariable=var, relief=RAISED, font=25)
-        var.set(label_date)
+        var.set(labelDate)
         label2.grid(column=column, row=1)
 
-        # label_date[0][7:14]
-        # print(all_values[0][7:14])
-        # print(rows[0][7:14])
 
-
-# Function that fills the dp_name list with appropriate names from the google sheet
+# Function that fills the dp_name list with appropriate names from the Google sheet
 def dp_row(p):
-        row = sheet_instance.row_values(p)
-        for pos in row[7:15]:
-            dp_name.append(pos)
-            # print(dp_name)
-            # print(len(dp_name))
-            # print(dp_name)
+    row = sheet_instance.row_values(p)
+    for pos in row[7:15]:
+        dp_name.append(pos)
 
 
 # function that creates dropdowns & names them correctly
 def start():
-    # for i in range(0, 48):
-        # print(dp_name[i])
     o = -1
     for i in range(2, 8):
-        #p=i
-        #dp_row(p)
         column = 0
         for letter in letter_List:
             pos = f"{letter}{i}"
             column += 1
-            o +=1
+            o += 1
             menu_op = StringVar()
             menu_op.set(dp_name[o])
-            #dropdown = OptionMenu(top, menu_op, *dp_options)
             dropdown = OptionMenu(top, menu_op, *dp_options, command=lambda status=dp_options, pos=pos: dp(status, pos))
             dropdown.grid(column=column, row=i, pady=3, padx=2)
 
