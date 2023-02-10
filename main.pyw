@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import *
+from tkinter import ttk
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -20,14 +21,22 @@ rows = sheet_instance.get()
 
 top = tk.Tk()
 
+
+# Changing main window attributes
+top.title("Voljin & Tonic Attendance")
+top.geometry("1920x1080")
+top.configure(bg="black")
+
+
 # dropdown menu option
 dp_options = [
     "Accepted",
     "Absent",
     "Benched",
-    "Planned Absence"
+    "Vacation"
 ]
 # List used for Position variable
+
 letter_List = [
     "H",
     "I",
@@ -37,17 +46,22 @@ letter_List = [
     "M",
     "N",
     "O",
-    # "P",
-    # "Q",
-    # "R",
-    # "S",
-    # "T",
-    # "U",
-    # "V",
-    # "W",
-    # "X",
-    # "Y",
-    # "Z"
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+    "AA",
+    "AB",
+    "AC",
+    "AD",
+    "AE"
 ]
 
 dp_name = [
@@ -80,10 +94,10 @@ def label_name():
 # All the dates in row 0 (excluding A-G Column)
 def label_date():
     column = 0
-    for labelDate in all_values[0][7:25]:
+    for labelDate in all_values[0][7:34]:
         column += 1
         var = StringVar()
-        label2 = Label(top, textvariable=var, relief=RAISED, font=25)
+        label2 = Label(top, textvariable=var, relief=FLAT, font=25)
         var.set(labelDate)
         label2.grid(column=column, row=1)
 
@@ -91,14 +105,14 @@ def label_date():
 # Function that fills the dp_name list with appropriate names from the Google sheet
 def dp_row(p):
     row = sheet_instance.row_values(p)
-    for pos in row[7:15]:
+    for pos in row[7:34]:
         dp_name.append(pos)
 
 
 # function that creates dropdowns & names them correctly
 def start():
     o = -1
-    for i in range(2, 8):
+    for i in range(2, 34):
         column = 0
         for letter in letter_List:
             pos = f"{letter}{i}"
@@ -106,15 +120,19 @@ def start():
             o += 1
             menu_op = StringVar()
             menu_op.set(dp_name[o])
-            dropdown = OptionMenu(top, menu_op, *dp_options, command=lambda status=dp_options, pos=pos: dp(status, pos))
-            dropdown.grid(column=column, row=i, pady=3, padx=2)
+            dropdown = OptionMenu(top, menu_op, *dp_options, command=lambda status=dp_options,
+                                                                            pos=pos: dp(status, pos))
+            dropdown.grid(column=column, row=i, pady=1, padx=1)
+            dropdown.configure(activebackground="Gray", activeforeground="Black", bg="Gray", fg="Black", highlightthickness=0, width=10)
 
 
-# Actual code running debug add
-for i in range(2, 8):
+
+# Actual code running
+for i in range(2, 34):
     p = i
     dp_row(p)
 label_date()
 label_name()
 start()
+
 top.mainloop()
