@@ -5,13 +5,7 @@ from tkinter import *
 from tkinter import ttk
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
-
+import os
 
 scopes = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -139,12 +133,23 @@ def start():
             elif dp_name[o] == "Benched":
                 dropdown.config(bg="Orange")
 
+def refresh():
+    top.destroy()
+    os.popen("main.exe")
+
+def exit():
+    top.destroy()
+
 
 # Actual code running
 for i in range(2, 29):
     p = i
     dp_row(p)
 
+rbutton = Button(top, text="Refresh me", command=refresh)
+rbutton.grid(row=40)
+ebutton = Button(top, text="Exit", command=exit)
+ebutton.grid(row=40, column=2)
 label_date()
 label_name()
 start()
