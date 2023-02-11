@@ -16,8 +16,8 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name("PythonSheetsTest
 # authenticate the JSON key with gspread
 file = gspread.authorize(credentials)
 # open sheet
-sheet = file.open("PythonAppTest")
-sheet_instance = sheet.sheet1
+sheet = file.open("Officer only sheet")
+sheet_instance = sheet.worksheet("Attendance")
 # list with data
 all_values = sheet_instance.get_all_values()
 rows = sheet_instance.get()
@@ -111,7 +111,7 @@ def dp_row(p):
 # function that creates dropdowns & names them correctly
 def start():
     o = -1
-    for i in range(2, 29):
+    for i in range(2, 34):
         column = 0
         for letter in letter_List:
             pos = f"{letter}{i}"
@@ -125,13 +125,13 @@ def start():
             dropdown.configure(font=("Helvetica 10 bold"), activebackground="Gray", activeforeground="Black", bg="Gray",
                                fg="Black", highlightthickness=0, width=7)
             if dp_name[o] == "Accepted":
-                dropdown.config(bg="Green")
+                dropdown.config(bg="Green", activebackground="Green")
             elif dp_name[o] == "Absent":
-                dropdown.config(bg="Red")
+                dropdown.config(bg="Red", activebackground="Red")
             elif dp_name[o] == "Vacation":
-                dropdown.config(bg="cyan")
+                dropdown.config(bg="cyan", activebackground="Cyan")
             elif dp_name[o] == "Benched":
-                dropdown.config(bg="Orange")
+                dropdown.config(bg="Orange", activebackground="Orange")
 
 def refresh():
     top.destroy()
@@ -140,9 +140,8 @@ def refresh():
 def exit():
     top.destroy()
 
-
 # Actual code running
-for i in range(2, 29):
+for i in range(2, 34):
     p = i
     dp_row(p)
 
